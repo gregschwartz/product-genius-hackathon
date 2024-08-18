@@ -120,29 +120,13 @@ function FeedPortal({ state, controller }: FeedPortalProps): Node {
       feedCard: JSON.parse(JSON.stringify(card)),
     });
     if (card.type === 'product_detail_card') {
-      if (flags.sourcePDP) {
-        window.open(
-          card.product.product_url,
-          url.target === 'self' ? '_self' : '_blank',
-        );
-      } else {
-        onDispatchCardPayload(card);
-      }
+      console.log('I could do something cool!')
       return;
     }
     if (card.type === 'variant_group_card') {
       const [variantId] = Object.keys(card.variants_info);
-      if (flags.sourcePDP) {
-        const variant = card.variants_info[variantId];
-        if (variant?.product?.product_url) {
-          window.open(
-            variant.product.product_url,
-            url.target === 'self' ? '_self' : '_blank',
-          );
-        }
-      } else {
-        onDispatchCardPayload(card);
-      }
+      console.log('I could do something cool!')
+      return;
     }
   };
 
