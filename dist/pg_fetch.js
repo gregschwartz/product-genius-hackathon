@@ -53,13 +53,12 @@ function getSessionsIds() {
       }
     }
     const handleStreamEvent = (event) => {
-      if (event.detail.type === 'stream-stream-cards') {
+      if (event.detail.type === 'get-stream-cards') {
         dispatchStreamEvent();
       }
     };
     window.addEventListener('pg-stream-event', handleStreamEvent);
-    
-    const webSocket = new WebSocket(`${socketURL}/feed/${organization}/${visitorId}/${sessionId}`);
+    const webSocket = new WebSocket(socketURL);
     const onSocketMessage = (event) => {
       if (event.data) {
         streamPayload = JSON.parse(event.data);
