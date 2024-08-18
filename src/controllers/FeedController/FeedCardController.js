@@ -50,7 +50,7 @@ export class FeedCardController extends ChatController {
     window.addEventListener('pg-stream-event', handleAppEvent);
     window.dispatchEvent(
       new CustomEvent('pg-stream-event', {
-        detail: { type: 'stream-initial-cards' },
+        detail: { type: 'get-stream-cards' },
       }),
     );
   }
