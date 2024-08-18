@@ -1,0 +1,13 @@
+.pg-embedded {
+  position: var(--pg-position-app);
+  z-index: var(--pg-zIndex-app);
+  width: var(--pg-width-app);
+  height: 100%;
+  .pg-portal-wrapper {
+    .pg-portal-feed {
+      height: 100% !important;
+      max-height: 100% !important;
+    }
+  }
+}
+

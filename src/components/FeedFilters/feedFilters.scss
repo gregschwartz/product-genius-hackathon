@@ -1,0 +1,16 @@
+.feed-embedded-filters {
+  order: -1;
+  max-width: var(--pg-width-max-feed-filters);
+  padding-top: var(--pg-padding-feed);
+  padding-right: 12px;
+  .card-wrapper {
+    margin-bottom: 12px;
+    padding: 0px;
+  }
+  &::before {
+    content: var(--pg-content-filter-title);
+    font: var(--pg-font-feed-filter-title);
+    display: block;
+    padding: 14px;
+  }
+}

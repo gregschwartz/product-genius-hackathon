@@ -1,0 +1,133 @@
+.gamalon-app {
+  /* ------- APP COLORS ------- */
+  // -> themes
+  --pg-color-theme: #f58a15;
+  // -> backgrounds
+  --pg-color-bk-btn: #000000;
+  --pg-color-bk-btn-cart: #f7f7f7;
+  --pg-color-bk-btn-details: #e6e6e6;
+  --pg-color-bk-btn-reorder: #f58a15;
+  --pg-color-bk-btn-buy-now: #ffffff;
+  --pg-color-bk-feed: #ffffff;
+  --pg-color-bk-card: unset;
+  --pg-color-bk-feed-banner: #ffffff;
+  --pg-color-bk-feed-banner-content: #ffffff00;
+  --pg-color-bk-feed-card-product: transparent;
+  --pg-color-bk-feed-card-qa: #ffffff;
+  --pg-color-bk-feed-card-content: #eee;
+  // -> colors
+  --pg-color-text: #000000;
+  --pg-color-banner-text: #000000;
+  --pg-color-text-alt: #ffffff;
+  --pg-color-btn: var(--pg-color-text);
+  --pg-color-btn-cart: var(--pg-color-text);
+  --pg-color-btn-alt: var(--pg-color-text);
+  --pg-color-card-price: #b50000;
+  --pg-color-card-shipping: #ff0000;
+  --pg-color-card-ribbon: #ca393c;
+  --pg-color-filter-title: #000000;
+  --pg-color-filter-link: #000000;
+  --pg-color-filter-link-selcted: #4d5e35;
+  --pg-color-card-title: var(--pg-color-text);
+  --pg-color-card-subtitle: var(--pg-color-text);
+  --pg-color-card-qa-text: var(--pg-color-text);
+  --pg-color-rating: #f58a15;
+  
+  /* ------- APP LAYOUT ------- */
+  --pg-grid-col-feed: 2;
+  --pg-grid-card-1x1-feed: span 1;
+  --pg-grid-card-1x2-feed: span 2;
+  --pg-grid-card-full-w-feed: 1/-1;
+  --pg-flex-align-card-product: left;
+  --pg-flex-align-banner-content: center;
+  --pg-order-card-price: 0;
+  --pg-order-card-variant: 1;
+  --pg-order-card-title: 2;
+  --pg-order-card-subtitle: 3;
+  --pg-order-card-rating: 3;
+  --pg-order-card-vendor: 4;
+  // card options
+  --pg-order-card-shipping: 0;
+  --pg-order-card-subscription: 1;
+  --pg-order-card-cart: 1;
+  --pg-order-card-buy-now: 2;
+  --pg-order-card-options: 3;
+
+  /* ------- APP Z-INDEX ------- */
+  --pg-zIndex-app: 1000000;
+  --pg-zIndex-modal: 1000000;
+
+  /* ------- APP SPACING ------- */
+  --pg-padding-feed: 0px;
+  --pg-padding-feed-banner-content: 20px;
+  --pg-padding-card: 0px;
+  --pg-padding-card-content: 5px;
+  --pg-padding-card-details: 8px;
+  --pg-padding-card-content-text: 10px;
+  --pg-padding-filter: 10px;
+  --pg-padding-filter-title: 12px 0px 12px 0px;
+  --pg-padding-filter-link: 0px 0px 4px 0px;
+  --pg-padding-rating: 0.25em;
+  --pg-gap-feed: 10px;
+
+  /* ------- APP SHADOWS ------- */
+  --pg-shadow-btn: none;
+  --pg-shadow-card: none;
+
+  /* ------- APP BORDERS ------- */
+  --pg-border-card: unset;
+  --pg-border-radius-btn: 2px;
+  --pg-border-radius-card: 2px;
+  --pg-border-radius-app: 0px;
+  --pg-border-radius-feed-banner-content: 0px;
+  --pg-border-radius-banner: 14px 14px 0px 0px;
+  --pg-border-radius-modal: 14px 14px 0px 0px;
+  
+  /* ------- APP SIZING ------- */
+  --pg-height-app-input: 32px;
+  --pg-height-card-image-m: 200px;
+  --pg-height-min-feed: 150px;
+  --pg-height-feed-banner: 200px;
+  --pg-width-mini-cards: 330px;
+  --pg-width-feed: 100%;
+  --pg-width-max-feed: auto;
+  --pg-width-max-feed-filters: 250px;
+  --pg-object-fit-image: contain;
+  --pg-width-app: 100%;
+  --pg-width-filter: 150px;
+  --pg-position-app: absolute;
+  --pg-font-size-rating: 14px;
+  
+  /* ------- APP FONTS ------- */
+  --pg-font-app: Arial, Helvetica, sans-serif;
+  --pg-font-xs: normal 400 12px/14px var(--pg-font-app);
+  --pg-font-s: normal 400 14px/17px var(--pg-font-app);
+  --pg-font-m: normal 400 15px/18px var(--pg-font-app);
+  --pg-font-l: normal 500 16px/18px var(--pg-font-app);
+  --pg-font-xl: normal 500 18px/20px var(--pg-font-app);
+  --pg-font-xxl: normal 600 24px/26px var(--pg-font-app);
+  --pg-font-card-price: var(--pg-font-s);
+  --pg-font-card-title: var(--pg-font-s);
+  --pg-font-card-subtitle: var(--pg-font-s);
+  --pg-font-card-vendor: var(--pg-font-xs);
+  --pg-font-card-shipping: var(--pg-font-s);
+  --pg-font-card-facet-title: var(--pg-font-s);
+  --pg-font-feed-filter-prefix: var(--pg-font-m);
+  --pg-font-feed-filter-title: var(--pg-font-xl);
+  --pg-font-feed-filter-link: var(--pg-font-m);
+  --pg-font-feed-banner-title: var(--pg-font-xxl);
+  --pg-font-feed-banner-description: var(--pg-font-m);
+
+
+  /* ------- APP CONTENT ------- */
+  --pg-content-filter-title: none;
+  --pg-content-filter-prefix: none;
+  --pg-content-card-ribbon: 'Bulk Up & Save!';
+  --pg-content-card-shipping: 'FREE SHIPPING';
+  --pg-content-card-variant-price-prefix: 'From\a0';
+  --pg-content-card-variant-option-title: 'View Options';
+  --pg-content-card-variants: 'variants available';
+  --pg-content-card-review: 'review';
+  --pg-content-card-review-multi: 'reviews';
+  --pg-content-feed-sort-title-prefix: none;
+}

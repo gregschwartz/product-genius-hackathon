@@ -1,0 +1,98 @@
+.pg-app-btn {
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-radius: var(--pg-border-radius-btn);
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &[data-type='merchant'] {
+    color: black;
+    background-color: white;
+    border-radius: 15px;
+  }
+
+  &[data-type='default'] {
+    color: var(--pg-color-btn);
+    border: 1px solid var(--pg-color-bk-btn);
+    background-color: var(--pg-color-bk-btn);
+  }
+
+  &[data-type='cart'] {
+    color: var(--pg-color-btn-cart, --pg-color-btn);
+    border: 1px solid var(--pg-color-bk-btn-cart);
+    background-color: var(--pg-color-bk-btn-cart);
+  }
+
+  &[data-type='buy-now'] {
+    color: var(--pg-color-btn);
+    border: 1px solid var(--pg-color-bk-btn-buy-now);
+    background-color: var(--pg-color-bk-btn-buy-now);
+  }
+
+  &[data-type='reorder'] {
+    color: var(--pg-color-btn);
+    border: 1px solid var(--pg-color-bk-btn-reorder);
+    background-color: var(--pg-color-bk-btn-reorder);
+  }
+
+  &[data-type='details'] {
+    color: var(--pg-color-btn-alt);
+    border: 1px solid var(--pg-color-bk-btn-details);
+    background-color: var(--pg-color-bk-btn-details);
+  }
+
+  &[data-type='border'] {
+    border: 1px solid var(--pg-color-bk-btn);
+    color: var(--pg-color-bk-btn);
+  }
+
+  &[data-size='xs'] {
+    font: var(--pg-font-xs);
+    padding: 4px 10px;
+  }
+
+  &[data-size='s'] {
+    font: var(--pg-font-s);
+    padding: 6px 12px;
+  }
+
+  &[data-size='m'] {
+    font: var(--pg-font-m);
+    padding: 6px 12px;
+  }
+
+  &[data-size='l'] {
+    font: var(--pg-font-l);
+    padding: 8px 14px;
+  }
+
+  &[data-size='xl'] {
+    font: var(--pg-font-xl);
+    padding: 8px 14px;
+  }
+
+  &[data-size='full-w'] {
+    font: normal 600 16px/20px Arial, Helvetica, sans-serif;
+    padding: 8px 0px;
+    width: 100%;
+    text-rendering: geometricPrecision;
+  }
+  &[data-shadow='true'] {
+    box-shadow: var(--pg-shadow-btn);
+  }
+}
+
+.pg-app-btn-content {
+  &::before {
+    content: var(--pg-content-btn, '');
+  }
+}

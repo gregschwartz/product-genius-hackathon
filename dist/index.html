@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FacetChat</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <style>
+    body,
+    html {
+      padding: 0px;
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+    }
+    #pg-app-wrapper {
+      margin: auto;
+      height: 100%;
+      width: 100%;
+      max-width: 920px;
+      min-height: 600px;
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="pg-app-wrapper"></div>
+  </body>
+  <script>
+    window.localStorage.setItem('GAMALON-pg-template-config', JSON.stringify({
+      container: '#pg-app-wrapper',
+      organizationId: "valuepetsupplies",
+      socketURL: "wss://facetchat.dev.gmln.io/ws",
+      serverBehavior: { use_cards: true },
+      analytics: { disableAll: true }
+    }));
+  </script>
+  <script async src="pg_fetch.js"></script>
+  <script src="facet-chat.js"></script>
+  <script>
+    window.addEventListener("load", () => {
+      const config = window.localStorage.getItem('GAMALON-pg-template-config');
+      if (config) {
+        GAMALON.init(JSON.parse(config));
+      }
+    });
+  </script>
+</html>

@@ -1,0 +1,37 @@
+.pg-app-reveal {
+  &[data-open='true'] {
+    .pg-app-reveal-title {
+      &::after {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  &[data-type='default'] {
+    border-bottom: 1px solid #d5d5d5 !important;
+  }
+
+  &-title {
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 18px 0px;
+    &::after {
+      content: '';
+      background-image: url('data:image/svg+xml,\00003csvg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\00003cpath fill="rgba(137,137,137,1)" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z">\00003c/path>\00003c/svg>');
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: 34px;
+      position: relative;
+      top: -2px;
+      height: 10px;
+      width: 18px;
+      flex-shrink: 0;
+      margin-left: 10px;
+    }
+  }
+  &-content {
+    padding-bottom: 18px;
+  }
+}

@@ -1,0 +1,14 @@
+/* overall styles */
+.gamalon-app {
+  &[data-visible="false"] {
+    display: none !important;
+  }
+  * {
+    box-sizing: border-box;
+    background-color: unset;
+    border: none;
+  }
+  div:empty {
+    display: block;
+  }
+}

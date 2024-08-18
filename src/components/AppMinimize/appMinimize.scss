@@ -1,0 +1,23 @@
+.pg-minimize-btn {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  padding: 0px;
+  background: #000000 !important;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  line-height: 25px;
+  font-family: var(--pg-font-app);
+  font-style: normal;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  display: flex;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+}

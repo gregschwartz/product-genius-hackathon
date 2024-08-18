@@ -1,0 +1,57 @@
+.pg-portal-sort {
+  display: flex;
+  justify-content: flex-end;
+  grid-column: 1/-1;
+
+  &-custom {
+    text-rendering: geometricPrecision;
+    border: 1px solid rgb(120, 120, 120) !important;
+    background-color: #ffffff !important;
+    padding: 10px;
+    font: var(--pg-font-m);
+    color: #2b2b2b;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    &:has(.pg-portal-sort-select) {
+      padding: 0px;
+      .pg-portal-sort-select {
+        padding: 10px;
+      }
+    }
+  }
+
+  &-select {
+    appearance: none;
+    outline: none;
+    font: var(--pg-font-m);
+    color: #2b2b2b;
+    cursor: pointer;
+    text-rendering: geometricPrecision;
+  }
+
+  &-custom-content {
+    &::before {
+      text-align: center;
+      content: 'Sort';
+      font: normal 400 16px/18px var(--pg-font-app);
+      color: #2b2b2b;
+      padding: 12px;
+      display: block;
+      padding-top: 0px;
+      pointer-events: none;
+    }
+    option {
+      text-align: center;
+      padding: 12px;
+      font: var(--pg-font-xxl);
+      color: #2b2b2b;
+      background-color: #ffffff !important;
+      cursor: pointer;
+      opacity: 0.6;
+      &[data-selected='true'] {
+        opacity: 1;
+      }
+    }
+  }
+}

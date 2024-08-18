@@ -1,0 +1,83 @@
+.pg-portal-wrapper {
+  width: var(--pg-width-app);
+  position: relative;
+  height: 100%;
+  min-height: 0px;
+  z-index: 3;
+  display: flex;
+
+  &[data-mobile='true'] {
+    .pg-portal-feed {
+      height: 100%;
+      max-height: unset;
+    }
+  }
+
+  &[data-loading='true'] {
+    pointer-events: none !important;
+    .portal-feed-url {
+      display: none;
+    }
+  }
+
+  .pg-no-scroll-bar {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.pg-portal-content {
+  position: relative;
+}
+
+.pg-portal-content {
+  width: var(--pg-width-feed);
+}
+
+.pg-portal-feed {
+  width: var(--pg-width-feed);
+  max-width: var(--pg-width-max-feed);
+  background: var(--pg-color-bk-feed) !important;
+  min-height: var(--pg-height-min-feed);
+  overflow-y: auto;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-content: flex-start;
+  align-items: stretch;
+  grid-template-columns: repeat(var(--pg-grid-col-feed, 2), 1fr);
+  grid-auto-rows: min-content;
+  gap: var(--pg-gap-feed, 15px);
+  padding: var(--pg-padding-feed, 15px);
+  margin: auto;
+}
+
+.portal-feed-url {
+  align-self: center;
+  text-decoration: none;
+  outline: none;
+  user-select: none;
+  grid-column-start: 1;
+  grid-column-end: -1;
+  .pg-app-footer-options {
+    padding: 10px 20px 20px 20px;
+    cursor: pointer;
+    .pg-footer-card-logo {
+      flex-direction: column;
+      svg {
+        transform: scale(1.4);
+        transform-origin: center;
+        margin-bottom: 12px;
+        path {
+          fill: #626262;
+        }
+      }
+      span {
+        color: #626262;
+        font-weight: normal;
+        margin: 0px;
+      }
+    }
+  }
+}

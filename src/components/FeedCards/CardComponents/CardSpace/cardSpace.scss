@@ -1,0 +1,31 @@
+.card-space {
+  &[data-type='vertical-full'] {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  &[data-type='horizontal-full'] {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  &[data-shadow='true'] {
+    overflow: hidden;
+    position: relative;
+    &::after {
+      content: '';
+      height: 30%;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgb(255, 255, 255) 100%
+      ) !important;
+    }
+  }
+}

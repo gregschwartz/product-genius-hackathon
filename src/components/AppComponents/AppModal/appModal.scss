@@ -1,0 +1,40 @@
+.pg-app-modal {
+  box-sizing: border-box !important;
+  position: absolute;
+  bottom: 0;
+  z-index: var(--pg-zIndex-modal) !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  border-radius: var(--pg-border-radius-app, 0px);
+  overflow: hidden;
+
+  &-overlay {
+    box-sizing: border-box !important;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: rgba(137, 137, 137, 0.3) !important;
+  }
+  &-content {
+    box-sizing: border-box !important;
+    box-shadow: 0px 0px 54px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    background: #ffffff !important;
+    border-radius: var(--pg-border-radius-modal);
+    padding: 24px 24px 16px 20px;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+  }
+  &-btn {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    user-select: none;
+    cursor: pointer;
+  }
+}
