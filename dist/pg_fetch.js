@@ -37,11 +37,14 @@ function getSessionsIds() {
   const server_behavior = configData?.serverBehavior ||  { use_cards: true, expand_single_product: true, fetch_provider: 'REST' }; // Set the server behavior
   const fetch_provider = configData?.serverBehavior?.fetch_provider || 'REST';
   const { visitorId, sessionId } = getSessionsIds();
+  const collection_identifier = configData?.collection_identifier;
+  const customer_id = configData?.customer_id;
 
   function useSocket() {
     let streamPayload = null;
     const dispatchStreamEvent = () => {
       if (streamPayload) {
+        console.log('Stream payload:', streamPayload);
         window.dispatchEvent(
           new CustomEvent('pg-stream-event', {
             detail: { type: 'stream-initial-cards', payload: streamPayload },
@@ -67,6 +70,7 @@ function getSessionsIds() {
       }
     };
     const onSocketOpen = () => {
+      console.log('Socket connection established, server behavior:', server_behavior);
       webSocket.send(
         JSON.stringify({
           type: 'visitor_new_session',
@@ -98,20 +102,22 @@ function getSessionsIds() {
     const socketUrl = new URL(socketURL);
     const protocol = socketUrl.protocol === 'wss:' ? 'https' : 'http';
     const port = socketUrl.port ? `:${socketUrl.port}` : '';
-    const serverURL = `${protocol}://${socketUrl.hostname}${port}/feed/${organization}/${visitorId}/${sessionId}`;
-    
-    
+    const serverURL = `${protocol}://${socketUrl.hostname}${port}/feed/${organization}/${visitorId}/${sessionId}?collectionX=${collection_identifier}&personalize_for_customer_id=${customer_id}&promptlet_flow=nph`;
+    console.log('rest fetch:', server_behavior);
+    const body = {
+      type: 'visitor_new_session',
+      id: uuid(),
+      current_url: window.location.href,
+      // current_url: `https://${organization}.myshopify.com/merch_feed/${organization}?collectionX=${collection_identifier}&personalize_for_customer_id=${customer_id}&promptlet_flow=nph`,
+      server_behavior,
+    };
+    console.log('fetching:', serverURL, body);
     fetch(serverURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        type: 'visitor_new_session',
-        id: uuid(),
-        current_url: window.location.href,
-        server_behavior,
-      }),
+      body: JSON.stringify(body),
     })
       .then((response) => response.text())
       .then((cardPayload) => {
