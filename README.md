@@ -1,6 +1,5 @@
-# FacetChat client app
-
-Front-end app for [FacetChat](https://github.com/gamalon/facetchat) created via `React` and `Webpack` bundler.
+# News reading app
+## Powered by Product Genius' LLM
 
 ### Development
 

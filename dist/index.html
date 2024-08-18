@@ -28,11 +28,36 @@
     <div id="pg-app-wrapper"></div>
   </body>
   <script>
+    const prompt = "Prioritize health articles.";
+    
+    const customer_id = "7720192999663"; // Scientist Right
+    // const customer_id = "7720198996207"; // Economist Left
+    const collection_identifier = "16ff5abd-ccfe-40ad-9a1c-1fd3049edd76";
+    const organization_id = "99689b-72";
+    // const fetch_provider = "socket";
+    const fetch_provider = "rest";
+    let session_id = Math.random().toString(32).substring(2);
+    let visitor_id = Math.random().toString(32).substring(2);
+    
     window.localStorage.setItem('GAMALON-pg-template-config', JSON.stringify({
+      collection_identifier: collection_identifier,
+      customer_id: customer_id,
+      organizationId: organization_id,
+      socketURL: "wss://app.productgenius.io/ws/feed/" + organization_id +"/" + session_id + "/" + visitor_id,
       container: '#pg-app-wrapper',
-      organizationId: "valuepetsupplies",
-      socketURL: "wss://facetchat.dev.gmln.io/ws",
-      serverBehavior: { use_cards: true },
+      serverBehavior: {
+        use_cards: true,
+        lby_enabled: true,
+        fetch_provider: fetch_provider,
+        lby_options: {
+          query_prompt: prompt,
+          content_card_size: "1x1",
+          enable_blog_qas: false,
+          enable_product_qas: false,
+          enable_reviews: false,
+          enable_videos: false,
+        },
+      },
       analytics: { disableAll: true }
     }));
   </script>
