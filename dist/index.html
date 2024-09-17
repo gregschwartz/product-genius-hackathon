@@ -47,6 +47,7 @@
       organizationId: organization_id,
       socketURL: "wss://app.productgenius.io/ws/feed/" + organization_id +"/" + session_id + "/" + visitor_id,
       container: '#pg-app-wrapper',
+      "pagination": {"enabled": true},
       serverBehavior: {
         use_cards: true,
         lby_enabled: true,
@@ -58,8 +59,13 @@
           enable_product_qas: false,
           enable_reviews: false,
           enable_videos: false,
-          // vgs_on_page: 7,
+          vgs_on_page: 3,
         },
+        infinite_scroll_options: {
+          enabled: true,
+          num_first_page_cards: 2,
+          num_cards_per_page: 2
+        }
       },
       design: {
         pagination: {
