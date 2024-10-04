@@ -45,6 +45,9 @@ module.exports = (env, argv) => ({
       directory: './dist',
     },
     port: 3001,
+    proxy: {
+      '/api': 'http://localhost:3000'
+    }
   },
   plugins: [
     argv.mode !== 'production' && new ReactRefreshWebpackPlugin(),

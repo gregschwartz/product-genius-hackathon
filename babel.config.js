@@ -2,7 +2,9 @@ const branch = process.env.GITHUB_REF_NAME || 'localhost';
 const environment = (['main', 'master'].includes(branch)) ? 'production' : branch;
 
 module.exports = (api) => {
-  const isDevelopment = api.env() !== 'production';
+  const isTest = api.env('test');
+  const isDevelopment = api.env() !== 'production' && !isTest;
+  // const isDevelopment = api.env() !== 'production';
   api.cache.using(() => environment);
   return {
     presets: [
@@ -23,6 +25,10 @@ module.exports = (api) => {
       ],
     ],
     // Applies the react-refresh Babel plugin on non-production modes only
-    ...(isDevelopment && { plugins: ['react-refresh/babel'] }),
+    // ...(isDevelopment && { plugins: ['react-refresh/babel'] }),
+        plugins: [
+          isDevelopment && 'react-refresh/babel',
+        ].filter(Boolean),
+      
   };
 };

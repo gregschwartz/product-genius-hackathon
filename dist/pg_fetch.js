@@ -41,6 +41,7 @@ function getSessionsIds() {
   const customer_id = configData?.customer_id;
 
   function useSocket() {
+    console.log('Socket fetch provider');
     let streamPayload = null;
     const dispatchStreamEvent = () => {
       if (streamPayload) {
@@ -84,6 +85,7 @@ function getSessionsIds() {
   }
 
   function useREST() {
+    console.log('REST fetch provider');
     let payload = null;
     const handleAppEvent = (event) => {
       if (event.detail.type === 'get-initial-cards' && payload) {
@@ -98,16 +100,17 @@ function getSessionsIds() {
     };
     window.addEventListener('pg-app-event', handleAppEvent);
 
+    const current_url = `https://${organization}.myshopify.com/merch_feed/${organization}?collectionX=${collection_identifier}&personalize_for_customer_id=${customer_id}&promptlet_flow=nph`;
     const socketUrl = new URL(socketURL);
     const protocol = socketUrl.protocol === 'wss:' ? 'https' : 'http';
     const port = socketUrl.port ? `:${socketUrl.port}` : '';
     const serverURL = `${protocol}://${socketUrl.hostname}${port}/feed/${organization}/${visitorId}/${sessionId}?collectionX=${collection_identifier}&personalize_for_customer_id=${customer_id}&promptlet_flow=nph`;
-    console.log('rest fetch:', server_behavior);
+    console.log('rest fetch:', serverURL, server_behavior);
     const body = {
       type: 'visitor_new_session',
       id: uuid(),
-      current_url: window.location.href,
-      // current_url: `https://${organization}.myshopify.com/merch_feed/${organization}?collectionX=${collection_identifier}&personalize_for_customer_id=${customer_id}&promptlet_flow=nph`,
+      // current_url: window.location.href,
+      current_url: current_url,
       server_behavior,
     };
     console.log('fetching:', serverURL, body);
@@ -170,7 +173,8 @@ function feedPaginationPG() {
         body: JSON.stringify({
           type: 'visitor_new_session',
           id: uuid(),
-          current_url: window.location.href,
+          // current_url: window.location.href,
+          current_url: `https://${organization}.myshopify.com/merch_feed/${organization}?collectionX=${collection_identifier}&personalize_for_customer_id=${customer_id}&promptlet_flow=nph`,
           server_behavior: configData?.serverBehavior ||  {},
           page: state.page,
           events,
