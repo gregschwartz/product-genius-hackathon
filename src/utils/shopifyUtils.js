@@ -87,18 +87,44 @@ async function addArticleToShopify(article) {
     }
 
     const productId = response.data.product.id;
-    console.log(`${productId}: Added article: ${title}`); // Logging the added article
+    // console.log(`${productId}: Added article: ${title}`); // Logging the added article
     return ({ success: true, productId });
   } catch (error) {
-    console.error(`Error adding article "${title}" to Shopify:`, error);
+    // console.error(`Error adding article "${title}" to Shopify:`, error);
     return ({ success: false, error: error.message, article });
   }
 }
 
+/**
+ * Removes articles that already exist in Shopify.
+ * @param {Array} articles - The list of articles to check.
+ * @returns {Promise<Array>} The list of articles that do not exist in Shopify.
+ */
+async function removeExistingProducts(articles) {
+  const existingProducts = await fetchShopifyProducts();
+
+  return articles.filter((article) => {
+    const exists = existingProducts.find((product) => {
+      const articleUrlVariant = product.variants.find(
+        (variant) => variant.option1 === article.url
+      );
+      return product.title === article.title || articleUrlVariant;
+    });
+
+    if (exists) {
+      console.log(`Article "${article.title}" already exists in Shopify.`);
+      // Exclude the article from being added
+      return false;
+    }
+
+    return true;
+  });
+}
 
 module.exports = {
   fetchShopifyProducts,
   addArticleToShopify,
+  removeExistingProducts,
   ERROR_MISSING_REQUIRED_FIELDS,
   ERROR_INVALID_URL,
 };
