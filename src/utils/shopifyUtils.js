@@ -1,6 +1,7 @@
 // src/utils/shopifyUtils.js
 const ERROR_MISSING_REQUIRED_FIELDS = 'Missing required field(s) for article';
 const ERROR_INVALID_URL = 'Error parsing URL';
+const REQUIRED_FIELDS = ['title', 'url', 'thumbnail']; // 'description'
 
 require('dotenv').config();
 const axios = require('axios');
@@ -36,11 +37,11 @@ async function fetchShopifyProducts() {
  * @returns {Promise<Array>} The results of adding each article.
  */
 async function addArticleToShopify(article) {
-  // Make sure it has title, description, at least one thumbnail, url
   const { title, description, thumbnail, url } = article;
-  if (!title || !description || !thumbnail || !url) {
+
+  if (REQUIRED_FIELDS.some(field => !article[field])) {
     // console.error('Missing required field(s) for article:', article);
-    return ({ success: false, error: ERROR_MISSING_REQUIRED_FIELDS, article });
+    return ({ success: false, error: ERROR_MISSING_REQUIRED_FIELDS, missingFields: REQUIRED_FIELDS.filter(field => !article[field]), article });
   }
 
   let hostname = '';
@@ -56,21 +57,19 @@ async function addArticleToShopify(article) {
       product: {
         title: title,
         body_html: description,
-        vendor: 'News Importer',
+        vendor: hostname,
         images: [{ src: thumbnail }],
         tags: [
-          url
+          url,
         ],
         options: [
           { name: 'URL', values: [url] },
-          { name: 'Publication', values: [hostname] },
         ],
-        variants: [
-          {
-            option1: url,
-            option2: hostname,
-          },
-        ],
+        // variants: [
+        //   {
+        //     option1: url,
+        //   },
+        // ],
       },
     };
 
@@ -81,6 +80,7 @@ async function addArticleToShopify(article) {
         'Content-Type': 'application/json'
       }
     });
+    // console.log(`\t\tResponse: ${response.data}`);
 
     if (response.errors) {
       throw new Error(JSON.stringify(response.errors));
@@ -112,7 +112,7 @@ async function removeExistingProducts(articles) {
     });
 
     if (exists) {
-      console.log(`Article "${article.title}" already exists in Shopify.`);
+      console.log(`\t\tArticle "${article.title}" already exists in Shopify.`);
       // Exclude the article from being added
       return false;
     }
@@ -127,4 +127,5 @@ module.exports = {
   removeExistingProducts,
   ERROR_MISSING_REQUIRED_FIELDS,
   ERROR_INVALID_URL,
+  REQUIRED_FIELDS,
 };

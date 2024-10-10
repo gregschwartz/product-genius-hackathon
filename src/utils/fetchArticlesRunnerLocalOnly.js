@@ -11,40 +11,48 @@ async function fetchArticlesRunnerLocalOnly() {
   const existingArticles = await fetchShopifyProducts();
 
   for (const site of supportedSites) {
+    const url = `https://${site}`;
     const content = await fetchPage(url);
     if (!content) {
-      console.error(`No content found for ${site}`);
+      console.error(`\tNo content found for ${site}`);
       continue;
     }
+    console.log(`${site}: ${content.length} characters`);
 
-    const articles = parseArticles(url, content);
+    const articles = parseArticles(site, url, content);
     if (articles.length === 0) {
-      console.error(`No articles found for ${site}`);
+      console.error(`\tNo articles found`);
       continue;
     }
 
-    console.log(`${site}: ${articles.length} articles found`);
+    console.log(`\t${articles.length} articles found`);
 
     // const articlesToAdd = removeExistingProducts(articles);
+    // console.log(`\tsmart filter: ${articlesToAdd.length} articles to add`);
 
     for (const article of articles) {
       if (existingArticles.some(existingArticle => existingArticle.title === article.title)) {
-        console.log(`\tAlready added: ${article.title}`);
+        console.log(`\tAlready added: ${article.url}`);
         continue;
       }
 
       console.log(`\tNew article: ${article.title}`);
 
-      continue;
       try {
-        const addedArticle = await addArticleToShopify(article);
-        console.log(`\tAdded: ${addedArticle.title}`);
+        const result = await addArticleToShopify(article);
+        if (result.success) {
+          console.log(`\t\tAdded: ${result.productId}`);
+        } else if (result.missingFields) {
+          console.log(`\t\tMissing fields: ${result.missingFields}`);
+          throw new Error(`Error: Missing fields: ${result.missingFields}`);
+          return;
+        } else {
+          throw new Error(result.error);
+        }
       } catch (error) {
-        console.error(`\tError adding article: ${article.title}, ${article.url}`, error);
+        console.error(`\t\tError adding article:`, article, error);
       }
     }
-
-    return;
   }
 }
 

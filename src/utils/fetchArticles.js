@@ -4,6 +4,13 @@ const httpsAgent = require('./httpsAgent');
 
 const UNSUPPORTED_URL_ERROR = 'Unsupported URL. Please provide a URL from a supported site.';
 
+const minimumLength = {
+  title: 20,
+  url: 9,
+  thumbnail: 10,
+  // description: 10,
+};
+
 /**
  * Fetch the HTML content of a given URL
  * @param {string} url - The URL to fetch
@@ -30,6 +37,7 @@ function parseArticles(baseUrl, url, content) {
     'cnn.com': parseCNN,
     'theverge.com': parseTheVerge,
     'theatlantic.com': parseTheAtlantic,
+    'theguardian.com': parseTheGuardian,
     // Add more sites here as needed
   };
 
@@ -41,32 +49,52 @@ function parseArticles(baseUrl, url, content) {
   
   const $ = cheerio.load(content);
   const parsedArticles = supportedSites[siteKey]($, url);
-  return parsedArticles;
+
+  // Filter out articles missing required fields
+  const filteredArticles = parsedArticles.filter(article => {
+    let isValid = true;
+    Object.keys(minimumLength).forEach(field => {
+      if (!article[field] || article[field].length < minimumLength[field]) {
+        isValid = false;
+        console.log(`\t\t"${article.title}": too short: ${field}: "${article[field]}"`);
+      }
+    });
+    return isValid;
+  });
+
+  return filteredArticles;
 }
 
 function validateAndExtractArticle($, article, selectors) {
   const title = $(article).find(selectors.title).text().trim();
-  const relativeUrl = $(article).find(selectors.url).attr('href');
+  let url = $(article).find(selectors.url).attr('href');
   const description = $(article).find(selectors.description).text().trim() || '';
-  const thumbnail = $(article).find(selectors.thumbnail).attr('src') || '';
-
-  if (!title) {
-    return null;
-  }
-
-  if (!relativeUrl) {
+  let thumbnail = $(article).find(selectors.thumbnail).attr('src') || '';
+  
+  // Can't work without a URL
+  if (!url) {
     console.error(`Error: Missing URL for article with title "${title}" ${description ? ` and description "${description}"` : ''}`);
     return null;
+  } else if (!url.startsWith('http')) {
+    url = selectors.baseUrl + url;
   }
-
-  const url = selectors.baseUrl + relativeUrl;
-  const validThumbnail = /^https?:\/\/.+/.test(thumbnail) ? thumbnail : '';
+  
+  // debug for The Verge
+  if (selectors.baseUrl.includes('theverge.com') && !/^https?:\/\/.+/.test(thumbnail) ) {
+    console.log("thumbnail", thumbnail, $(article).find(selectors.thumbnail).html());// , $(article).html());
+  }
+  
+  //validThumbnail 
+  if (!/^https?:\/\/.+/.test(thumbnail) ) {
+    console.log("thumbnail", thumbnail, $(article).html());
+    thumbnail = '';
+  }
 
   return {
     title,
     url,
     description,
-    thumbnail: validThumbnail,
+    thumbnail,
   };
 }
 
@@ -100,7 +128,7 @@ function parseTheVerge($) {
       title: 'h2, h3',
       url: 'a',
       description: 'p',
-      thumbnail: 'img',
+      thumbnail: 'img, noscript img',
       baseUrl: 'https://www.theverge.com',
     });
 
@@ -131,6 +159,27 @@ function parseTheAtlantic($) {
   });
 
   // console.log(parsedArticles);
+  return parsedArticles;
+}
+
+function parseTheGuardian($) {
+  const parsedArticles = [];
+  const articleElements = $('li');
+
+  articleElements.each((i, article) => {
+    const articleData = validateAndExtractArticle($, article, {
+      title: 'h3 span',
+      url: 'a',
+      description: 'h3 div',
+      thumbnail: 'img',
+      baseUrl: 'https://www.theguardian.com',
+    });
+
+    if (articleData) {
+      parsedArticles.push(articleData);
+    }
+  });
+
   return parsedArticles;
 }
 

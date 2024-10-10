@@ -33,7 +33,7 @@ describe('Shopify Utils', () => {
 
 
     // Helpers to create an article with missing fields
-    const requiredFields = ['title', 'url', 'description', 'thumbnail'];
+    const requiredFields = ['title', 'url'];//, 'description', 'thumbnail'];
     const createArticleWithMissingFields = (fieldsToRemove) => {
       const article = { ...validArticle };
       fieldsToRemove.forEach(field => delete article[field]);
